@@ -15,6 +15,13 @@ import {
 } from "react-router-dom";
 import { About, Users, Home } from "./components";
 
+const to = {
+  pathname: "/users",
+  search: "?class=A",
+  hash: "#user-hash",
+  state: { test: "test-state" },
+};
+
 export const App = () => (
   <ChakraProvider theme={theme}>
     <Box w="100" h="16" bg="red.200">
@@ -26,20 +33,25 @@ export const App = () => (
           <ReactLink to="/">
             <Tab>Home</Tab>
           </ReactLink>
-          <ReactLink to="/User">
-            <Tab>User</Tab>
+          <ReactLink to={to}>
+            <Tab>Users</Tab>
           </ReactLink>
-          <ReactLink to="/About">
+          <ReactLink to="/About/1">
             <Tab>About</Tab>
           </ReactLink>
         </TabList>
       </Tabs>
       <Switch>
-        <Route path={["/about", "/profile"]}>
+        <Route path={["/about/:aboutId", "/profile"]}>
           <About />
         </Route>
         <Route path="/users">
-          <Users />
+          <Users
+            pathname={to.pathname}
+            search={to.search}
+            hash={to.hash}
+            state={to.state}
+          />
         </Route>
         <Route path="/">
           <Home />
